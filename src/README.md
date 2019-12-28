@@ -1,4 +1,4 @@
-# superstar
+# iris_server_api
 使用Go语言的iris+xorm框架
 <br/>
 
