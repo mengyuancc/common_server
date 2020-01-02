@@ -15,7 +15,7 @@ var MasterDbConfig DbConf = DbConf{
 	Port:   3306,
 	User:   "root",
 	Pwd:    "123456",
-	DbName: "iris",
+	DbName: "server",
 }
 
 var SlaveDbConfig DbConf = DbConf{
