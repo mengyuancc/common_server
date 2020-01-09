@@ -12,11 +12,6 @@ import (
 // Configure registers the necessary routes to the app.
 func Configure(b *bootstrap.Bootstrapper) {
 	superstarService := services.NewSuperstarService()
-
-	index := mvc.New(b.Party("/"))
-	index.Register(superstarService)
-	index.Handle(new(controllers.IndexController))
-
 	admin := mvc.New(b.Party("/admin"))
 	admin.Router.Use(middleware.BasicAuth)
 	admin.Register(superstarService)
@@ -31,4 +26,8 @@ func Configure(b *bootstrap.Bootstrapper) {
 	user := mvc.New(b.Party("/user"))
 	user.Register(userService)
 	user.Handle(new(controllers.UserController))
+
+	index := mvc.New(b.Party("/"))
+	index.Register(superstarService)
+	index.Handle(new(controllers.IndexController))
 }

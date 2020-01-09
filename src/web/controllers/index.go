@@ -6,10 +6,8 @@ package controllers
 
 import (
 	"log"
-
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
-
 	"datasource"
 	"models"
 	"services"
@@ -21,7 +19,7 @@ type IndexController struct {
 }
 
 // http://localhost:8080/
-func (c *IndexController) Get() {
+func (c *IndexController) Get() mvc.View{
 	//c.Service.GetAll()
 	//return mvc.Response{
 	//	Text:"ok\n",
@@ -29,35 +27,33 @@ func (c *IndexController) Get() {
 	datalist := c.Service.GetAll()
 	//var datalist []models.StarInfo
 	//set the model and render the view template.
-	/*return mvc.View{
+	return mvc.View{
 		Name: "index.html",
 		Data: iris.Map{
 			"Title":    "球星库",
 			"Datalist": datalist,
 		},
-	}*/
-	data :=  map[string]interface{}{
+	}
+	/*data :=  map[string]interface{}{
 		"code":0,
 		"data":datalist,
 	}
-	c.Ctx.JSON(data)
+	c.Ctx.JSON(data)*/
 }
 
 // http://localhost:8080/{id}
-func (c *IndexController) GetBy(id int) {
+func (c *IndexController) GetBy(id int) mvc.Result{
 	if id < 1 {
 		c.Ctx.WriteString("id 不存在")
 	}
 	data := c.Service.Get(id)
-	/*return mvc.View{
+	return mvc.View{
 		Name: "info.html",
 		Data: iris.Map{
 			"Title": "球星库",
 			"info":  data,
 		},
-	}*/
-	c.Ctx.JSON(data)
-
+	}
 }
 
 // http://localhost:8080/search?country=巴西

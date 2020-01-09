@@ -26,7 +26,7 @@ func (c *UserController) Get() {
 
 // 根据id获取用户
 func (c *UserController) GetBy(id int) {
-	if id < 1 {
+	if id < 1 { 
 		panic("id 不存在")
 	}
 	data := c.Service.Get(id)
