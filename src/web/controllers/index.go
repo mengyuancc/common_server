@@ -5,12 +5,13 @@
 package controllers
 
 import (
-	"log"
+	"fmt"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
-	"datasource"
-	"models"
-	"services"
+	"iris_server/datasource"
+	"iris_server/models"
+	"iris_server/services"
+	"log"
 )
 
 type IndexController struct {
@@ -19,7 +20,42 @@ type IndexController struct {
 }
 
 // http://localhost:8080/
-func (c *IndexController) Get() mvc.View{
+func (c *IndexController) Get() mvc.Result{
+	//c.Service.GetAll()
+	//return mvc.Response{
+	//	Text:"ok\n",
+	//}
+	//datalist := c.Service.GetAll()
+	//var datalist []models.StarInfo
+	//set the model and render the view template.
+	return mvc.View{
+		Name: "default.html",
+		Data: iris.Map{
+			"Title":    "青橙书舍",
+			//"Datalist": datalist,
+		},
+	}
+}
+
+// http://localhost:8080/{id}
+func (c *IndexController) GetBy(id int) mvc.Result{
+	if id < 1 {
+		c.Ctx.WriteString("id 不存在")
+	}
+	fmt.Println(id)
+
+	data := c.Service.Get(id)
+	return mvc.View{
+		Name: "info.html",
+		Data: iris.Map{
+			"Title": "球星库",
+			"info":  data,
+		},
+	}
+}
+
+// http://localhost:8080/all
+func (c *IndexController) GetAll() mvc.Result {
 	//c.Service.GetAll()
 	//return mvc.Response{
 	//	Text:"ok\n",
@@ -39,21 +75,7 @@ func (c *IndexController) Get() mvc.View{
 		"data":datalist,
 	}
 	c.Ctx.JSON(data)*/
-}
-
-// http://localhost:8080/{id}
-func (c *IndexController) GetBy(id int) mvc.Result{
-	if id < 1 {
-		c.Ctx.WriteString("id 不存在")
-	}
-	data := c.Service.Get(id)
-	return mvc.View{
-		Name: "info.html",
-		Data: iris.Map{
-			"Title": "球星库",
-			"info":  data,
-		},
-	}
+	//c.Ctx.WriteString("这是首页")
 }
 
 // http://localhost:8080/search?country=巴西

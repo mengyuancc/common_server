@@ -3,10 +3,10 @@ package routes
 import (
 	"github.com/kataras/iris/mvc"
 
-	"bootstrap"
-	"services"
-	"web/controllers"
-	"web/middleware"
+	"iris_server/bootstrap"
+	"iris_server/services"
+	"iris_server/web/controllers"
+	"iris_server/web/middleware"
 )
 
 // Configure registers the necessary routes to the app.

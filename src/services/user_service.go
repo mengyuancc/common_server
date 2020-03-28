@@ -1,9 +1,9 @@
 package services
 
 import (
-	"dao"
-	"models"
-	"datasource"
+	"iris_server/dao"
+	"iris_server/datasource"
+	"iris_server/models"
 )
 
 type UserService interface {

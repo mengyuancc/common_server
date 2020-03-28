@@ -6,7 +6,7 @@ package controllers
 
 import (
 	"github.com/kataras/iris"
-	"services"
+	"iris_server/services"
 )
 
 type UserController struct {

@@ -2,7 +2,7 @@ package dao
 
 import (
 	"github.com/go-xorm/xorm"
-	"models"
+	"iris_server/models"
 )
 
 type SuperstarDao struct {

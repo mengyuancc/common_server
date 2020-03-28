@@ -6,8 +6,8 @@ import (
 	"log"
 	"time"
 
-	"models"
-	"services"
+	"iris_server/models"
+	"iris_server/services"
 )
 
 type AdminController struct {

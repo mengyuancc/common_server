@@ -22,6 +22,6 @@ var SlaveDbConfig DbConf = DbConf{
 	Host:   "127.0.0.1",
 	Port:   3306,
 	User:   "root",
-	Pwd:    "root",
-	DbName: "iris-read",
+	Pwd:    "123456",
+	DbName: "server",
 }

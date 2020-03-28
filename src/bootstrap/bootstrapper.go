@@ -9,7 +9,7 @@ import (
 	//"github.com/kataras/iris/websocket"
 	"time"
 
-	"conf"
+	"iris_server/conf"
 )
 
 type Configurator func(*Bootstrapper)
@@ -26,7 +26,9 @@ type Bootstrapper struct {
 	Sessions *sessions.Sessions
 }
 
-// New returns a new Bootstrapper.
+/**
+ * 构造方法
+ */
 func New(appName, appOwner string, cfgs ...Configurator) *Bootstrapper {
 	b := &Bootstrapper{
 		AppName:      appName,
@@ -42,11 +44,13 @@ func New(appName, appOwner string, cfgs ...Configurator) *Bootstrapper {
 	return b
 }
 
-// SetupViews loads the templates.
+/**
+ * 设置模版引擎
+ */
 func (b *Bootstrapper) SetupViews(viewsDir string) {
 	htmlEngine := iris.HTML(viewsDir, ".html").Layout("shared/layout.html")
 	// 每次重新加载模版（线上关闭它）
-	htmlEngine.Reload(false)
+	htmlEngine.Reload(true)
 	// 给模版内置各种定制的方法
 	htmlEngine.AddFunc("FromUnixtimeShort", func(t int) string {
 		dt := time.Unix(int64(t), int64(0))
@@ -59,7 +63,9 @@ func (b *Bootstrapper) SetupViews(viewsDir string) {
 	b.RegisterView(htmlEngine)
 }
 
-// SetupSessions initializes the sessions, optionally.
+/**
+ * 设置session
+ */
 func (b *Bootstrapper) SetupSessions(expires time.Duration, cookieHashKey, cookieBlockKey []byte) {
 	b.Sessions = sessions.New(sessions.Config{
 		Cookie:   "SECRET_SESS_COOKIE_" + b.AppName,
@@ -102,7 +108,7 @@ func (b *Bootstrapper) SetupErrorHandlers() {
 
 const (
 	// StaticAssets is the root directory for public assets like images, css, js.
-	StaticAssets = "./public/"
+	StaticAssets = "public/"
 	// Favicon is the relative 9to the "StaticAssets") favicon path for our app.
 	Favicon = "favicon.ico"
 )
@@ -118,11 +124,14 @@ func (b *Bootstrapper) Configure(cs ...Configurator) {
 //
 // Returns itself.
 func (b *Bootstrapper) Bootstrap() *Bootstrapper {
-	b.SetupViews("./views")
+	//设置模版
+	b.SetupViews("web/views")
+	//开启session
 	b.SetupSessions(24*time.Hour,
 		[]byte("the-big-and-secret-fash-key-here"),
 		[]byte("lot-secret-of-characters-big-too"),
 	)
+	//设置错误跳转
 	b.SetupErrorHandlers()
 
 	// static files
