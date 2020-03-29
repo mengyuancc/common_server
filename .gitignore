@@ -1,5 +1,5 @@
 .idea
 .gitignore
 pkg
-bin
-conf/*
+/conf/
+/bin/

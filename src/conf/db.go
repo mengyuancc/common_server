@@ -1,7 +1,7 @@
 package conf
 
 /**
- * 数据配置
+ * 数据配置修正
  */
 const DriverName = "mysql"
 
