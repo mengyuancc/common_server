@@ -22,7 +22,6 @@ type Bootstrapper struct {
 	AppName      string
 	AppOwner     string
 	AppSpawnDate time.Time
-
 	Sessions *sessions.Sessions
 }
 
@@ -108,7 +107,7 @@ func (b *Bootstrapper) SetupErrorHandlers() {
 
 const (
 	// StaticAssets is the root directory for public assets like images, css, js.
-	StaticAssets = "public/"
+	StaticAssets = "./public/"
 	// Favicon is the relative 9to the "StaticAssets") favicon path for our app.
 	Favicon = "favicon.ico"
 )

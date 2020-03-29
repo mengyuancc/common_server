@@ -1,5 +1,8 @@
 package conf
 
+/**
+ * 数据配置
+ */
 const DriverName = "mysql"
 
 type DbConf struct {
