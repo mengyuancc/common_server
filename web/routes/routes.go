@@ -22,10 +22,10 @@ func Configure(b *bootstrap.Bootstrapper) {
 	//b.Get("/like/{id:long}", GetLikeHandler)
 
 	// 用户相关
-	userService := services.NewUserService()
+	UserService := services.NewUserService() //注册service
 	user := mvc.New(b.Party("/user"))
-	user.Register(userService)
-	user.Handle(new(controllers.UserController))
+	user.Register(UserService)
+	user.Handle(new(controllers.UserController)) //注册控制器
 
 	index := mvc.New(b.Party("/"))
 	index.Register(superstarService)

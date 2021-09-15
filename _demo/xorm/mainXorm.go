@@ -17,7 +17,7 @@ import (
 )
 
 const DriverName = "mysql"
-const MasterDataSourceName = "root:root@tcp(127.0.0.1:3306)/superstar?charset=utf8"
+const MasterDataSourceName = "root:root@tcp(127.0.0.1:3306)/server?charset=utf8"
 
 /**
 CREATE TABLE `user_info` (

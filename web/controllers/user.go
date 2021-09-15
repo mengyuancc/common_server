@@ -5,6 +5,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/kataras/iris"
 	"iris_server/services"
 )
@@ -17,11 +18,12 @@ type UserController struct {
 // 获取用户
 func (c *UserController) Get() {
 	datalist := c.Service.GetAll()
+	fmt.Println(datalist)
 	data :=  map[string]interface{}{
 		"code":0,
 		"data":datalist,
 	}
-	c.Ctx.JSON(data)
+	c.Ctx.JSONP(data)
 }
 
 // 根据id获取用户

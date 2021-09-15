@@ -1,7 +1,6 @@
 .idea
 .gitignore
-pkg
-/src/conf/
+/conf/*
 /bin/
-/src/conf/db.go
-/src/conf/sysconf.go
+/conf/db.go
+/conf/sysconf.go
