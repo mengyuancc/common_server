@@ -4,3 +4,4 @@
 /bin/
 /conf/db.go
 /conf/sysconf.go
+.DS_Store
