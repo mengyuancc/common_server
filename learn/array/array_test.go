@@ -51,6 +51,16 @@ func TestSliceInit(t *testing.T){
 	e := make([]int, 2, 4)
 	t.Log(e)
 }
+func TestSliceInsert(t *testing.T) {
+	fmt.Println("look slice incr")
+	var arr []int
+
+	for i := 0; i < 100; i++{
+		arr = append(arr, i)
+		t.Log(len(arr), cap(arr), i)
+	}
+	t.Log(arr[:128])
+}
 
 func sliceChange(a []int) {
 	a[2] = 10
