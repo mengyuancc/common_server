@@ -5,6 +5,7 @@ import (
 	"runtime"
 	"sync"
 	"testing"
+	"time"
 )
 
 var wg sync.WaitGroup
@@ -23,13 +24,68 @@ func TestWorker(t *testing.T) {
 
 func TestRunTime(t *testing.T) {
 	go func(s string) {
-		for i:=0; i<100; i++ {
+		for i:=0; i<10; i++ {
 			fmt.Println(s)
 		}
 	}("world")
-	for i:=0; i<100; i++ {
+	for i:=0; i<10; i++ {
 		// 切换一下
-		runtime.Gosched()
+		if i == 5 {
+			runtime.Gosched()
+		}
 		fmt.Println("hello")
 	}
 }
+
+func a() {
+	for i := 1; i < 4; i++ {
+		fmt.Println("A:", i)
+	}
+}
+
+func b() {
+	for i := 1; i < 4; i++ {
+		fmt.Println("B:", i)
+	}
+}
+
+func TestRuntimeGOMax(t *testing.T) {
+	runtime.GOMAXPROCS(1)
+	go a()
+	go b()
+	time.Sleep(time.Second)
+}
+
+func recv(c chan int) {
+	c <- 3
+	fmt.Println("发送成功")
+}
+
+func TestChannelDemo(t *testing.T) {
+	ch := make(chan int)
+	go recv(ch)
+	<-ch
+	t.Log("接受成功")
+}
+
+// 优雅的从channel中循环取值
+func TestChannelDemo2(t *testing.T) {
+	c := make(chan int)
+	go func() {
+		for i:=0; i< 100; i++ {
+			c <- i
+		}
+		close(c)
+	}()
+	/*for {
+		if data,ok := <-c; ok {
+			t.Log(data)
+		} else {
+			break
+		}
+	}*/
+	for v := range c {
+		t.Log(v)
+	}
+}
+
