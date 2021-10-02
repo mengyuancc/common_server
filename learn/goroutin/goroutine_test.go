@@ -1,4 +1,4 @@
-package goroutin_test
+package goroutine_test
 
 import (
 	"fmt"
@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// goroutine
 var wg sync.WaitGroup
 func worker(i int) {
 	defer wg.Done()
@@ -22,6 +23,7 @@ func TestWorker(t *testing.T) {
 	wg.Wait()
 }
 
+// runtime
 func TestRunTime(t *testing.T) {
 	go func(s string) {
 		for i:=0; i<10; i++ {
@@ -56,6 +58,7 @@ func TestRuntimeGOMax(t *testing.T) {
 	time.Sleep(time.Second)
 }
 
+// channel
 func recv(c chan int) {
 	c <- 3
 	fmt.Println("发送成功")
@@ -72,8 +75,9 @@ func TestChannelDemo(t *testing.T) {
 func TestChannelDemo2(t *testing.T) {
 	c := make(chan int)
 	go func() {
-		for i:=0; i< 100; i++ {
+		for i:=0; i< 10; i++ {
 			c <- i
+			fmt.Println("发送", i)
 		}
 		close(c)
 	}()
@@ -85,7 +89,8 @@ func TestChannelDemo2(t *testing.T) {
 		}
 	}*/
 	for v := range c {
-		t.Log(v)
+		fmt.Println("接收", v)
+		// t.Log(v)
 	}
 }
 
