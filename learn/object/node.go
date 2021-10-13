@@ -1,6 +1,8 @@
-package tree
+package object
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Node struct {
 	Value int
@@ -26,5 +28,22 @@ func (node *Node) SetValuePro(value int) {
 	node.Value = value
 }
 
+// 中序遍历
+func (node *Node) Traverse() {
+	if node == nil {
+		return
+	}
+	node.Left.Traverse()
+	fmt.Println(node.Value)
+	node.Right.Traverse()
+}
 
+type User struct {
+	Name string
+	Age int
+}
 
+// 设置实例的值
+func (u *User) SetName() {
+	u.Name = "update:" + u.Name
+}
