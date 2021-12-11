@@ -59,14 +59,14 @@ func TestRuntimeGOMax(t *testing.T) {
 }
 
 // channel
-func recv(c chan int) {
+func recv(c chan int, t *testing.T) {
 	c <- 3
-	fmt.Println("发送成功")
+	t.Log("发送成功")
 }
 
 func TestChannelDemo(t *testing.T) {
 	ch := make(chan int)
-	go recv(ch)
+	go recv(ch, t)
 	<-ch
 	t.Log("接受成功")
 }

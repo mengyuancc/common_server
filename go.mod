@@ -1,4 +1,4 @@
-module iris_server
+module common_server
 
 go 1.14
 
