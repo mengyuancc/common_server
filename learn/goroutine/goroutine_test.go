@@ -8,13 +8,24 @@ import (
 	"time"
 )
 
-// goroutine
+func singleWork(t *testing.T) {
+	t.Log("work hello Goroutine")
+}
+
+// 启动单个goroutine
+func TestSingleGoRoutine(t *testing.T) {
+	go singleWork(t)
+	t.Log("main goroutine done")
+	// time.Sleep(time.Second) 强制主协程等待子协程
+}
+
 var wg sync.WaitGroup
 func worker(i int) {
 	defer wg.Done()
 	fmt.Printf("worker %d start doing \n", i)
 }
 
+// 启动多个goroutine （使用sync.WaitGroup来实现goroutine的同步）
 func TestWorker(t *testing.T) {
 	for i:=0; i<10000; i++ {
 		wg.Add(1)
@@ -52,45 +63,9 @@ func b() {
 }
 
 func TestRuntimeGOMax(t *testing.T) {
-	runtime.GOMAXPROCS(1)
+	runtime.GOMAXPROCS(2)
 	go a()
 	go b()
 	time.Sleep(time.Second)
-}
-
-// channel
-func recv(c chan int, t *testing.T) {
-	c <- 3
-	t.Log("发送成功")
-}
-
-func TestChannelDemo(t *testing.T) {
-	ch := make(chan int)
-	go recv(ch, t)
-	<-ch
-	t.Log("接受成功")
-}
-
-// 优雅的从channel中循环取值
-func TestChannelDemo2(t *testing.T) {
-	c := make(chan int)
-	go func() {
-		for i:=0; i< 10; i++ {
-			c <- i
-			fmt.Println("发送", i)
-		}
-		close(c)
-	}()
-	/*for {
-		if data,ok := <-c; ok {
-			t.Log(data)
-		} else {
-			break
-		}
-	}*/
-	for v := range c {
-		fmt.Println("接收", v)
-		// t.Log(v)
-	}
 }
 
